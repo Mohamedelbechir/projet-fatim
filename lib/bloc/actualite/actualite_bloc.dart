@@ -38,6 +38,7 @@ class ActualiteBloc extends Bloc<ActualiteEvent, ActualiteState> {
 
   Stream<ActualiteState> _mapChargerActualiteToState(
       ChargerActualite event) async* {
+    final itemPerPage = 7;
     try {
       if (state is ActualiteChargee) {
         final _state = state as ActualiteChargee;
@@ -53,7 +54,7 @@ class ActualiteBloc extends Bloc<ActualiteEvent, ActualiteState> {
         final actus = await actualiteRepository.findAll(1);
         yield ActualiteChargee(
           actualites: actus,
-          noPage: actus.length < 7 ? true : false,
+          noPage: actus.length < itemPerPage ? true : false,
         );
       }
     } catch (e) {
